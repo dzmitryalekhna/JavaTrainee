@@ -1,22 +1,31 @@
 package org.example;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.parser.NumberParser;
+import org.example.parser.impl.NumberParserImpl;
+import org.example.reader.DataReader;
+import org.example.reader.impl.DataReaderImpl;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.io.IOException;
+import java.util.List;
+
 public class Main {
     static Logger logger = LogManager.getLogger();
 
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
-        for (int i = 1; i <= 5; i++) {
-            logger.error("hello");
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
+    static void main() throws IOException {
+        //Read line from file
+        DataReader reader = new DataReaderImpl();
+        List<String> linesFromFile = reader.readFile("data/data.txt");
+        
+        //Validate and Parse lines  
+        NumberParser parser = new NumberParserImpl();
+        parser.parseNumberLine(linesFromFile);
+        
+        
+        logger.info("File {} was read successfully", "data");
+        for(String line: linesFromFile){
+            System.out.println(line);
+           logger.debug(line);
         }
     }
 }
