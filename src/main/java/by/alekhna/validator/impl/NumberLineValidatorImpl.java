@@ -1,6 +1,6 @@
-package org.example.validator.impl;
+package by.alekhna.validator.impl;
 
-import org.example.validator.NumberLineValidator;
+import by.alekhna.validator.NumberLineValidator;
 
 public class NumberLineValidatorImpl implements NumberLineValidator {
 
