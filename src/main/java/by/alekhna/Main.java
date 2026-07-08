@@ -25,6 +25,7 @@ import java.util.UUID;
 public class Main {
     static Logger logger = LogManager.getLogger();
     public static void main(String[] args) throws CustomArrayException {
+// TASK 1
         //Read line from file
         DataReader reader = new DataReaderImpl();
         List<String> linesFromFile = reader.readFile("data/data.txt");
@@ -45,7 +46,8 @@ public class Main {
         ArraySortService arraySortService = new ArraySortServiceImpl();
         arraySortService.quickSort(customArray);
         arraySortService.quickSort(listOfNumberLines.get(1));
-
+        
+//TASK 2
         //Add all arrays to repository
         CustomArrayRepository customArrayRepository = CustomArrayRepositoryImpl.getInstance();
         for (CustomArray arrayItem : listOfNumberLines) {
