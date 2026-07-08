@@ -5,14 +5,22 @@ import by.alekhna.parser.NumberParser;
 import by.alekhna.parser.impl.NumberParserImpl;
 import by.alekhna.reader.DataReader;
 import by.alekhna.reader.impl.DataReaderImpl;
+import by.alekhna.repository.CustomArrayRepository;
+import by.alekhna.repository.impl.CustomArrayRepositoryImpl;
 import by.alekhna.service.ArraySortService;
 import by.alekhna.service.ArrayValueService;
 import by.alekhna.service.impl.ArraySortServiceImpl;
 import by.alekhna.service.impl.ArrayValueServiceImpl;
+import by.alekhna.specification.CustomArraySpecification;
+import by.alekhna.specification.impl.ByAvgSpecification;
+import by.alekhna.specification.impl.ByIdSpecification;
+import by.alekhna.specification.impl.BySummSpecification;
+import by.alekhna.specification.impl.ByValueSpecificaion;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Main {
     static Logger logger = LogManager.getLogger();
@@ -37,5 +45,32 @@ public class Main {
         ArraySortService arraySortService = new ArraySortServiceImpl();
         arraySortService.quickSort(customArray);
         arraySortService.quickSort(listOfNumberLines.get(1));
+
+        //Add all arrays to repository
+        CustomArrayRepository customArrayRepository = CustomArrayRepositoryImpl.getInstance();
+        for (CustomArray arrayItem : listOfNumberLines) {
+            customArrayRepository.add(arrayItem);
+        }
+
+        //Find array by ID using findBy with specification
+        CustomArray firstArray = listOfNumberLines.get(0);
+        UUID requestId = firstArray.getId();
+        CustomArraySpecification idSpec = new ByIdSpecification(requestId);
+        customArrayRepository.findBy(idSpec);
+
+        //Find array by element using findBy with specification
+        int requestValue = 1972;
+        CustomArraySpecification valueSpec = new ByValueSpecificaion(1972);
+        customArrayRepository.findBy(valueSpec);
+
+        //Find array by summ value using findBy with specification
+        int requestSumm = 1972;
+        CustomArraySpecification summSpec = new BySummSpecification(-30098);
+        customArrayRepository.findBy(summSpec);
+
+        //Find array by average value using findBy with specification
+        Double requestAvg = 130.33333333333334;
+        CustomArraySpecification avgSpec = new ByAvgSpecification(requestAvg);
+        customArrayRepository.findBy(avgSpec);
     }
 }

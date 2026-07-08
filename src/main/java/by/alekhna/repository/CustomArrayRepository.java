@@ -5,5 +5,7 @@ import by.alekhna.specification.CustomArraySpecification;
 import java.util.List;
 
 public interface CustomArrayRepository {
-    List findBy(CustomArraySpecification specification);
+    List<CustomArray> findBy(CustomArraySpecification specification);
+    void add(CustomArray customArray);
+    void remove(CustomArray customArray);
 }
