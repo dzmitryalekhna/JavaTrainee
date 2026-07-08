@@ -59,18 +59,15 @@ public class Main {
         customArrayRepository.findBy(idSpec);
 
         //Find array by element using findBy with specification
-        int requestValue = 1972;
         CustomArraySpecification valueSpec = new ByValueSpecificaion(1972);
         customArrayRepository.findBy(valueSpec);
 
         //Find array by summ value using findBy with specification
-        int requestSumm = 1972;
         CustomArraySpecification summSpec = new BySummSpecification(-30098);
         customArrayRepository.findBy(summSpec);
 
         //Find array by average value using findBy with specification
-        Double requestAvg = 130.33333333333334;
-        CustomArraySpecification avgSpec = new ByAvgSpecification(requestAvg);
+        CustomArraySpecification avgSpec = new ByAvgSpecification(130.33333333333334);
         customArrayRepository.findBy(avgSpec);
     }
 }
