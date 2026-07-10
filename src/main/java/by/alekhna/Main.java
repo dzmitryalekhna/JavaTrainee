@@ -1,4 +1,5 @@
 package by.alekhna;
+import by.alekhna.comparator.CustomArrayComparator;
 import by.alekhna.entity.CustomArray;
 import by.alekhna.exception.CustomArrayException;
 import by.alekhna.parser.NumberParser;
@@ -16,10 +17,14 @@ import by.alekhna.specification.impl.ByAvgSpecification;
 import by.alekhna.specification.impl.ByIdSpecification;
 import by.alekhna.specification.impl.BySummSpecification;
 import by.alekhna.specification.impl.ByValueSpecificaion;
+import by.alekhna.entity.CustomArrayStatistic;
+import by.alekhna.warehouse.Warehouse;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class Main {
@@ -71,5 +76,35 @@ public class Main {
         //Find array by average value using findBy with specification
         CustomArraySpecification avgSpec = new ByAvgSpecification(130.33333333333334);
         customArrayRepository.findBy(avgSpec);
+        
+        //Sort arrays by ID
+        Collections.sort(listOfNumberLines, CustomArrayComparator.BY_ID);
+        for (CustomArray array : listOfNumberLines) {
+            logger.info("Sorting arrays by ID: {}, Array: {}", array.getId(), array.getIntArray());
+        }
+
+        //Sort arrays by array size
+        Collections.sort(listOfNumberLines, CustomArrayComparator.BY_SIZE);
+        for (CustomArray array : listOfNumberLines) {
+            logger.info("Sorting arrays by size: {}, Array: {}", array.getIntArray().length, array.getIntArray());
+        }
+        
+        Warehouse warehouse = Warehouse.getInstance();
+        UUID firstArrayId = firstArray.getId();
+        logger.info("Array: {}", firstArray.getIntArray());
+        //Before update
+        Optional<CustomArrayStatistic> statisticOpt = warehouse.getParameters(firstArrayId);
+        statisticOpt.ifPresent(stat -> logger.info("Statistic: {}", stat));
+
+        //Update
+        int[] array = firstArray.getIntArray();
+        array[0] = 999;
+        firstArray.setIntArray(array);
+
+        //After update
+        logger.info("Changed array first element = {}", firstArray.getIntArray()[0]);
+        Optional<CustomArrayStatistic> statisticUpdatedOpt = warehouse.getParameters(firstArrayId);
+        statisticUpdatedOpt.ifPresent(stat -> logger.info("Statistic after change: {}", stat));
+
     }
 }

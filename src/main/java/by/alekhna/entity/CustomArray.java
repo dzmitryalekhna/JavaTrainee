@@ -1,5 +1,7 @@
 package by.alekhna.entity;
 
+import by.alekhna.observer.CustomArrayObserver;
+import by.alekhna.observer.impl.CustomArrayObserverImpl;
 import java.util.UUID;
 
 public class CustomArray {
@@ -9,6 +11,7 @@ public class CustomArray {
     public CustomArray(int[] arrayInt){
         this.id = UUID.randomUUID();
         this.intArray = arrayInt.clone();
+        notifyObservers();
     }
 
     public UUID getId() {
@@ -17,6 +20,11 @@ public class CustomArray {
 
     public int[] getIntArray() {
         return intArray;
+    }
+
+    public void setIntArray(int[] intArray) {
+        this.intArray = intArray;
+        notifyObservers();
     }
 
     @Override
@@ -42,5 +50,10 @@ public class CustomArray {
     @Override
     public int hashCode() {
         return this.intArray.hashCode();
+    }
+
+    public void notifyObservers() {
+        CustomArrayObserver customArrayObserver = new CustomArrayObserverImpl();
+        customArrayObserver.handleEvent(this);
     }
 }
