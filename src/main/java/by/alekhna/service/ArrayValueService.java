@@ -1,8 +1,6 @@
 package by.alekhna.service;
 
 import by.alekhna.entity.CustomArray;
-
-import java.util.List;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 

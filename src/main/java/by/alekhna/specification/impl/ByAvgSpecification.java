@@ -22,9 +22,6 @@ public class ByAvgSpecification implements CustomArraySpecification {
 
     @Override
     public boolean specified(CustomArray customArray) {
-        if (customArray == null || customArray.getIntArray() == null) {
-            return false;
-        }
         OptionalDouble avg = arrayValueService.average(customArray);
         return avg.isPresent() && Double.compare(avg.getAsDouble(), averageValue) == 0;
     }

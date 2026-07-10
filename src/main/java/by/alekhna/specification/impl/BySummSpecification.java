@@ -22,9 +22,6 @@ public class BySummSpecification implements CustomArraySpecification {
 
     @Override
     public boolean specified(CustomArray customArray) {
-        if (customArray == null) {
-            return false;
-        }
         OptionalInt sum = arrayValueService.sum(customArray);
         return sum.isPresent() && sum.getAsInt() == sumValue;
     }

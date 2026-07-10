@@ -12,8 +12,7 @@ public class Warehouse {
     private static Warehouse instance;
     private final HashMap<UUID, CustomArrayStatistic> parameters = new HashMap<>();
 
-    private Warehouse() {
-    }
+    private Warehouse() {}
 
     public static Warehouse getInstance() {
         if (instance == null) {
@@ -30,10 +29,8 @@ public class Warehouse {
         parameters.remove(arrayId);
     }
 
-    public Optional<CustomArrayStatistic> getParameters(UUID arrayId) {
-        Optional<CustomArrayStatistic> optionalParameters = Optional.ofNullable(parameters.get(arrayId));
-        logger.info("Parameters of array with id = {} - {}", arrayId, optionalParameters.orElse(null));
-
-        return optionalParameters;
+    public CustomArrayStatistic getParameters(UUID arrayId) {
+        logger.info("Parameters of array with id = {} - {}", arrayId, parameters.get(arrayId));
+        return parameters.get(arrayId);
     }
 }

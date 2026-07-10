@@ -16,9 +16,6 @@ public class ByValueSpecificaion implements CustomArraySpecification {
 
     @Override
     public boolean specified(CustomArray customArray) {
-        if (customArray == null || customArray.getIntArray() == null) {
-            return false;
-        }
         for (int value : customArray.getIntArray()) {
             if (value == element) {
                 return true;

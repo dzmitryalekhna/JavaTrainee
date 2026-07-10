@@ -27,6 +27,11 @@ public class CustomArray {
         notifyObservers();
     }
 
+    public void setElementAt(int index, int value) {
+        this.intArray[index] = value;
+        notifyObservers();
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) {

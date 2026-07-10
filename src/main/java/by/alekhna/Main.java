@@ -17,19 +17,17 @@ import by.alekhna.specification.impl.ByAvgSpecification;
 import by.alekhna.specification.impl.ByIdSpecification;
 import by.alekhna.specification.impl.BySummSpecification;
 import by.alekhna.specification.impl.ByValueSpecificaion;
-import by.alekhna.entity.CustomArrayStatistic;
 import by.alekhna.warehouse.Warehouse;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public class Main {
     static Logger logger = LogManager.getLogger();
-    public static void main(String[] args) throws CustomArrayException {
+     static void main(String[] args) throws CustomArrayException {
 // TASK 1
         //Read line from file
         DataReader reader = new DataReaderImpl();
@@ -89,22 +87,14 @@ public class Main {
             logger.info("Sorting arrays by size: {}, Array: {}", array.getIntArray().length, array.getIntArray());
         }
         
+        //Check statistic Before update
         Warehouse warehouse = Warehouse.getInstance();
         UUID firstArrayId = firstArray.getId();
         logger.info("Array: {}", firstArray.getIntArray());
-        //Before update
-        Optional<CustomArrayStatistic> statisticOpt = warehouse.getParameters(firstArrayId);
-        statisticOpt.ifPresent(stat -> logger.info("Statistic: {}", stat));
+        logger.info("Statistic before update: {}", warehouse.getParameters(firstArrayId));
 
-        //Update
-        int[] array = firstArray.getIntArray();
-        array[0] = 999;
-        firstArray.setIntArray(array);
-
-        //After update
-        logger.info("Changed array first element = {}", firstArray.getIntArray()[0]);
-        Optional<CustomArrayStatistic> statisticUpdatedOpt = warehouse.getParameters(firstArrayId);
-        statisticUpdatedOpt.ifPresent(stat -> logger.info("Statistic after change: {}", stat));
-
+        //Update element
+        firstArray.setElementAt(0, 999);
+        logger.info("Statistic after update : {}", warehouse.getParameters(firstArrayId));
     }
 }
