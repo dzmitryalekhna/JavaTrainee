@@ -7,7 +7,6 @@ import by.alekhna.parser.impl.NumberParserImpl;
 import by.alekhna.reader.DataReader;
 import by.alekhna.reader.impl.DataReaderImpl;
 import by.alekhna.repository.CustomArrayRepository;
-import by.alekhna.repository.impl.CustomArrayRepositoryImpl;
 import by.alekhna.service.ArraySortService;
 import by.alekhna.service.ArrayValueService;
 import by.alekhna.service.impl.ArraySortServiceImpl;
@@ -52,7 +51,7 @@ public class Main {
         
 //TASK 2
         //Add all arrays to repository
-        CustomArrayRepository customArrayRepository = CustomArrayRepositoryImpl.getInstance();
+        CustomArrayRepository customArrayRepository = CustomArrayRepository.getInstance();
         for (CustomArray arrayItem : listOfNumberLines) {
             customArrayRepository.add(arrayItem);
         }
