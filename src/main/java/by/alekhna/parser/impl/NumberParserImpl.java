@@ -21,7 +21,7 @@ public class NumberParserImpl implements NumberParser {
         
         List<CustomArray> result = new ArrayList<>();
         for (String line : numberLines) {
-            if (line.isBlank() || !validator.isContainNumber(line)) {
+            if (!validator.isContainNumber(line)) {
                 logger.warn("Incorrect data - {}", line);
                 continue;
             }

@@ -6,6 +6,6 @@ public class NumberLineValidatorImpl implements NumberLineValidator {
 
     @Override
     public boolean isContainNumber(String line) {
-        return (line != null && line.matches(NUMBER_REGEX));
+        return (line != null && !line.isBlank() && line.matches(NUMBER_REGEX));
     }
 }
